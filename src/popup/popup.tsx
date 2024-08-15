@@ -1,21 +1,45 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { createRoot } from 'react-dom/client'
 import './popup.css'
+import ComCard from './comcard'
 
-const cardlmages={
-  {"src": "/img/syml.png",matched:false}
-}
+const cardImages = [
+  {"src" : "/img/시온.png", matched : false},
+  {"src" : "/img/리쿠.png", matched : false},
+  {"src" : "/img/유우시.png", matched : false},
+  {"src" : "/img/재희.png", matched : false},
+  {"src" : "/img/료.png", matched : false},
+  {"src" : "/img/사쿠야.png", matched : false}
+]
 
 const App: React.FC<{}> = () => {
 
+  const [cards, setCards] = useState([])
+  const [turns, setTurns] = useState(0)
+
   const btnExe = () => {
-    console.log("버튼눌렀다.")
+    //카드 섞기
+    const shuffled = [...cardImages, ...cardImages]
+      .sort(() => Math.random() - 0.5)
+      .map((card_src) => ({id: Math.random(), ...card_src}))
+    //console.log(shuffled)
+    setCards(shuffled)
+    setTurns(0)
   }
 
   return (
     <div>
       <h1>메모리게임</h1>
       <button onClick={btnExe}>시작</button>
+
+      <div className='card-grid'>
+        {cards.map(card => (
+          <ComCard
+            key={card.id}
+            card={card}
+          />
+        ))}
+      </div>
     </div>
   )
 }
