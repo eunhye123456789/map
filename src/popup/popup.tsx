@@ -2,6 +2,10 @@ import React from 'react'
 import { createRoot } from 'react-dom/client'
 import './popup.css'
 
+const cardlmages={
+  {"src": "/img/syml.png",matched:false}
+}
+
 const App: React.FC<{}> = () => {
 
   const btnExe = () => {
